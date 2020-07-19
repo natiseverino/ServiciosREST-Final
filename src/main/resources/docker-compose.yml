@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  db-container:
+    image: bautistacrp/carpintero-severino-tp-rest:db-image
+    ports:
+      - 3306:3306
+
+  app-container:
+    image: bautistacrp/carpintero-severino-tp-rest:app-image
+    ports:
+      - 8080:8080
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://db-container:3306/db-restapi
+      MYSQL_ADDR: db-container
+      MYSQL_PORT: 3306
+      MYSQL_ROOT_PASSWORD: 0000
+
+    depends_on:
+      - db-container
